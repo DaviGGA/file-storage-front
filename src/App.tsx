@@ -1,16 +1,41 @@
+import { useDispatch, useSelector } from 'react-redux'
 import { Folder } from './components/Folder'
 import { Navbar } from './components/Navbar'
-import { useFile } from './providers/FileProvider'
+import { AppDispatch, RootState } from "@/state/store"
+import { useEffect } from 'react';
+import { folderService } from './api/folder-service';
+import { setItems } from './state/items-slice';
 
 function App() {
 
-  const { items } = useFile();
+  const items = useSelector((state: RootState) => state.items);
+  const folderStack = useSelector((state: RootState) => state.folderStack);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    if(!folderStack.selected) {
+      fetchFirst();
+      return
+    } ;
+
+    fetchFolderDirectDescendants(folderStack.selected._id);
+  }, [folderStack])
+
+  async function fetchFirst() {
+    const firstFolders = await folderService.findFirst();
+    dispatch(setItems(firstFolders))
+  }
+
+  async function fetchFolderDirectDescendants(id: string) {
+    const descendantFolders = await folderService.findFolderDirectDescendants(id);
+    dispatch(setItems(descendantFolders));
+  }
 
   return (
     <div>
       <Navbar/>
       <div className='flex flex-wrap p-10'>
-        {items.map(item =>  item.type === "folder" ? <Folder folder={item}/> : <></>)}
+        {items.map((item, idx) =>  item.type === "folder" ? <Folder key={idx} folder={item}/> : <></>)}
       </div>
     </div>
   )
