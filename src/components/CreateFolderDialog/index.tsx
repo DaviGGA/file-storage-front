@@ -7,7 +7,7 @@ import {
   DialogFooter,
   DialogClose
 } from "@/components/ui/dialog"
-import { ButtonHTMLAttributes, ReactNode, useRef, useState } from "react"
+import { ReactNode, useRef, useState } from "react"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { useDispatch, useSelector } from "react-redux"

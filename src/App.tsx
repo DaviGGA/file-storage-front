@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { Folder } from './components/Folder'
+import { File } from './components/File'
 import { Navbar } from './components/Navbar'
 import { AppDispatch, RootState } from "@/state/store"
 import { useEffect } from 'react';
@@ -35,7 +36,12 @@ function App() {
     <div>
       <Navbar/>
       <div className='flex flex-wrap p-10'>
-        {items.map((item, idx) =>  item.type === "folder" ? <Folder key={idx} folder={item}/> : <></>)}
+        {
+          items.map(
+            (item, idx) =>  item.type === "folder" ? 
+            <Folder key={idx} folder={item}/> : <File key={idx} file={item}/>
+          )
+        }
       </div>
     </div>
   )

@@ -3,8 +3,9 @@ import { BackAndForward } from "./BackAndForward";
 import { RootState } from "@/state/store";
 import { Document } from "@/@types/Document";
 import { IFolder } from "@/@types/IFolder";
-import { FolderPlus } from "lucide-react";
+import { FolderPlus, FilePlus } from "lucide-react";
 import { CreateFolderDialog } from "../CreateFolderDialog";
+import { UploadFolderDialog } from "../UploadFolderDialog";
 
 export function Navbar() {
 
@@ -21,8 +22,11 @@ export function Navbar() {
       <div className="py-2">{getSelectedPath(folderStack.selected)}</div>
       <div className="flex gap-3">
         <CreateFolderDialog className="opacity-60 p-2 rounded-full cursor-pointer hover:bg-gray-100">
-            <FolderPlus/>
+          <FolderPlus/>
         </CreateFolderDialog>
+        <UploadFolderDialog className="opacity-60 p-2 rounded-full cursor-pointer hover:bg-gray-100">
+          <FilePlus/>
+        </UploadFolderDialog>
       </div>
     </div>
   )
