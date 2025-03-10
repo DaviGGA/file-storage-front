@@ -11,10 +11,11 @@ import {
 import { ChangeEvent, ReactNode, useRef, useState } from "react"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
-import {  useSelector } from "react-redux"
-import { RootState } from "@/state/store"
+import {  useDispatch, useSelector } from "react-redux"
+import { AppDispatch, RootState } from "@/state/store"
 
 import { fileService } from "@/api/file-service"
+import { add } from "@/state/items-slice"
 
 type Props = {
   children: ReactNode,
@@ -29,6 +30,8 @@ type UploadState = {
 export function UploadFolderDialog({children, className}: Props) {
 
   const selected = useSelector((state: RootState) => state.folderStack.selected);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const closeRef= useRef<HTMLButtonElement>(null);
 
@@ -45,7 +48,9 @@ export function UploadFolderDialog({children, className}: Props) {
       path: selected?.path ?? null
     }
 
-    await fileService.createFile(createFile)
+    const newFile = await fileService.createFile(createFile);
+    console.log(newFile);
+    dispatch(add(newFile));
     
     closeRef.current?.click();
   }

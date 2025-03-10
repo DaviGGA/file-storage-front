@@ -32,6 +32,14 @@ async function createFile(params: CreateFile): Promise<Document<IFile>> {
 
 }
 
+async function downloadFile(fileId: string): Promise<Blob> {
+  const response = await api.get(`/file/download/${fileId}`, {
+    responseType: "blob"
+  });
+  return response.data
+}
+
 export const fileService = {
-  createFile
+  createFile,
+  downloadFile
 }
