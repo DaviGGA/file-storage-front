@@ -2,6 +2,7 @@ import { api } from "./axios";
 import { StorageItem } from "@/@types/StorageItem";
 import { Document } from "@/@types/Document";
 import { IFolder } from "@/@types/IFolder";
+import { MoveFolder } from "@/@types/MoveFolder";
 
 async function findFolderDirectDescendants(id: string): Promise<Document<StorageItem>[]> {
   const response = await api.get<Document<StorageItem>[]>(`/folder/descendants/direct/${id}`);
@@ -18,8 +19,20 @@ async function createFolder(name: string, path: string | null): Promise<Document
   return response.data
 }
 
+async function deleteFolder(id: string): Promise<Document<IFolder>> {
+  const response = await api.delete<Document<IFolder>>(`/folder/${id}`);
+  return response.data;
+}
+
+async function moveFolder(body: MoveFolder) {
+  const response = await api.post<void>(`/folder/move`, body);
+    return response.data;
+}
+
 export const folderService = {
   findFolderDirectDescendants,
   findFirst,
-  createFolder
+  createFolder,
+  moveFolder,
+  deleteFolder
 }

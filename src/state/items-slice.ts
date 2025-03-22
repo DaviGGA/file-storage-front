@@ -15,10 +15,13 @@ const items = createSlice({
     },
     add: (state, action: PayloadAction<Document<StorageItem>>) => {
       return [...state, action.payload]
+    },
+    remove: (state, action: PayloadAction<string>) => {
+      return state.filter(item => item._id != action.payload);
     }
   }
 })
 
-export const { setItems, add } = items.actions;
+export const { setItems, add, remove } = items.actions;
 
 export default items.reducer;
