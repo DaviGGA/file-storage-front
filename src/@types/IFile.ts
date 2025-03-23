@@ -1,7 +1,7 @@
 import { BaseStorageItem } from "./BaseStorageItem"
 import { MimeType } from "./Mimetype"
 
-type Bytes = number
+export type Bytes = number
 
 export type IFile = {
   type: "file",

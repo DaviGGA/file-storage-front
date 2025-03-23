@@ -3,6 +3,7 @@ import { StorageItem } from "@/@types/StorageItem";
 import { Document } from "@/@types/Document";
 import { IFolder } from "@/@types/IFolder";
 import { MoveFolder } from "@/@types/MoveFolder";
+import { FolderProperties } from "@/@types/FolderProperties";
 
 async function findFolderDirectDescendants(id: string): Promise<Document<StorageItem>[]> {
   const response = await api.get<Document<StorageItem>[]>(`/folder/descendants/direct/${id}`);
@@ -24,6 +25,11 @@ async function deleteFolder(id: string): Promise<Document<IFolder>> {
   return response.data;
 }
 
+async function getFolderProperties(id: string): Promise<FolderProperties> {
+  const response = await api.get<FolderProperties>(`/folder/properties/${id}`);
+  return response.data;
+}
+
 async function moveFolder(body: MoveFolder) {
   const response = await api.post<void>(`/folder/move`, body);
     return response.data;
@@ -34,5 +40,6 @@ export const folderService = {
   findFirst,
   createFolder,
   moveFolder,
-  deleteFolder
+  deleteFolder,
+  getFolderProperties
 }

@@ -1,4 +1,5 @@
 export type BaseStorageItem = {
   name: string,
-  path: string
+  path: string,
+  createdAt: string
 }

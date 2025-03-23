@@ -13,7 +13,7 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu"
-import { FolderProperties } from "./FolderProperties";
+import { FolderPropertiesDialog } from "./FolderPropertiesDialog";
 import { useState } from "react";
 
 type Props = {
@@ -73,7 +73,7 @@ export function Folder({folder}: Props) {
           </ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
-      <FolderProperties
+      <FolderPropertiesDialog
       folder={folder}
       open={propertiesOpen}
       setOpen={setPropertiesOpen}
